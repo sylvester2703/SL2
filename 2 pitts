@@ -1,0 +1,52 @@
+"""w1=1
+w2=-1
+th=1
+print(" A    B   |A ANDNOT B ")
+print("------------------------")
+for a in range(2):
+    for b in range(2):
+        ws=(a*w1)+(b*w2)
+       
+        if ws>=th:
+            print('',a,'  ',b,'  |',' 1')
+        else:
+            print('',a,'  ',b,'  |',' 0')
+"""
+print("A    B   | A ANDNOT B")
+print("----------------------")
+w1 = 1
+w2 = -1
+theta = 1
+n = int(input("Enter number of test cases: "))
+for i in range(n):
+    while True:
+        x1 = int(input("Enter x1 (0 or 1): "))
+        if x1 == 0 or x1 == 1:
+            break
+        else:
+            print("Invalid input! Enter only 0 or 1.")
+    while True:
+        x2 = int(input("Enter x2 (0 or 1): "))
+        if x2 == 0 or x2 == 1:
+            break
+        else:
+            print("Invalid input! Enter only 0 or 1.")
+    net = x1*w1 + x2*w2
+    if net >= theta:
+        y = 1
+    else:
+        y = 0
+    print(x1, "   ", x2, "  |   ", y)
+
+"""
+def andnot(x1, x2):
+    w1, w2 = 1, -1
+    threshold = 1
+    net = x1*w1 + x2*w2
+    return 1 if net >= threshold else 0
+
+for x1 in [0,1]:
+    for x2 in [0,1]:
+        print(x1, x2, "->", andnot(x1,x2))
+"""
+
