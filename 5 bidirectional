@@ -1,0 +1,66 @@
+import numpy as np
+def bipolar(vector):
+    return np.where(np.array(vector)==0,-1,1)
+result=bipolar([1,0,1])
+print(result)
+def sigmoid(x):
+    return np.where(x>=0,1,-1)
+x1=bipolar([1,0,1])
+y1=bipolar([0,1])
+x2=bipolar([0,1,0])
+y2=bipolar([1,0])
+W=np.zeros((len(x1),len(y1)))
+W+=np.outer(x1,y1)
+W+=np.outer(x2,y2)
+print("Weighted Matrix:\n",W)
+test_x=bipolar([1,0,1])
+print("\n Input X:",test_x)
+y_out=sigmoid(np.dot(test_x,W))
+print("\n Output Y:",y_out)
+test_y=bipolar([0,1])
+print("\n Input Y:",test_y)
+x_out=sigmoid(np.dot(test_y,W.T))
+print("\n Output X:", x_out)
+
+"""
+import numpy as np
+def bipolar(vector):
+    return np.where(np.array(vector) == 0, -1, 1)
+def sigmoid(x):
+    return np.where(x >= 0, 1, -1)
+def get_vector_input(prompt):
+    return [int(i) for i in input(prompt).split()]
+print("--- BAM Training Phase ---")
+x1 = bipolar(get_vector_input("Enter x1 (e.g., 1 0 1): "))
+y1 = bipolar(get_vector_input("Enter y1 (e.g., 0 1): "))
+x2 = bipolar(get_vector_input("Enter x2 (e.g., 0 1 0): "))
+y2 = bipolar(get_vector_input("Enter y2 (e.g., 1 0): "))
+W = np.outer(x1, y1) + np.outer(x2, y2)
+print("\nGenerated Weight Matrix:\n", W)
+print("\n--- Testing Phase ---")
+test_x = bipolar(get_vector_input("Enter X to find Y: "))
+y_out = sigmoid(np.dot(test_x, W))
+print("Recalled Y:", y_out)
+test_y = bipolar(get_vector_input("Enter Y to find X: "))
+x_out = sigmoid(np.dot(test_y, W.T))
+print("Recalled X:", x_out)
+"""
+"""
+import numpy as np
+
+X = np.array([[1,-1,1],[-1,1,-1]])
+Y = np.array([[1,1],[-1,-1]])
+
+W = np.dot(X.T, Y)
+
+# Recall
+def recall_x(y):
+    return np.sign(np.dot(W, y))
+
+def recall_y(x):
+    return np.sign(np.dot(W.T, x))
+
+print("Recall X:", recall_x(Y[0]))
+print("Recall Y:", recall_y(X[0]))
+"""
+
