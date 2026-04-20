@@ -1,0 +1,31 @@
+import matplotlib.pyplot as plt
+import math
+start = int(input("Enter start value: "))
+end = int(input("Enter end value: "))
+x = []
+sigmoid = []
+relu = []
+tanh = []
+i = start
+while i <= end:
+    x.append(i)
+    sig = 1 / (1 + math.exp(-i))
+    sigmoid.append(sig)
+    if i > 0:
+        relu.append(i)
+    else:
+        relu.append(0)
+    ep = math.exp(i)
+    en = math.exp(-i)
+    t = (ep - en) / (ep + en)
+    tanh.append(t)
+    i += 1
+plt.plot(x, sigmoid, label="Sigmoid")
+plt.plot(x, relu, label="ReLU")
+plt.plot(x, tanh, label="Tanh")
+plt.title("Activation Functions")
+plt.xlabel("X values")
+plt.ylabel("Output")
+plt.legend()
+plt.grid(True)
+plt.show()
