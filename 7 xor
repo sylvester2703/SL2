@@ -1,0 +1,39 @@
+x = [[0,0],[0,1],[1,0],[1,1]]
+t = [0,1,1,0]
+w1, w2 = 0.5, -0.4
+w3, w4 = 0.3, 0.2
+v1, v2 = 0.4, -0.3
+bh1, bh2 = 0.1, 0.1
+bo = 0.1
+lr = 0.5
+epoch = int(input("Enter epochs: "))
+def sigmoid(z):
+    return 1 / (1 + 2.71828**(-z))
+for e in range(epoch):
+    for i in range(4):
+        h1_in = x[i][0]*w1 + x[i][1]*w2 + bh1
+        h2_in = x[i][0]*w3 + x[i][1]*w4 + bh2
+        h1 = sigmoid(h1_in)
+        h2 = sigmoid(h2_in)
+        o_in = h1*v1 + h2*v2 + bo
+        o = sigmoid(o_in)
+        error = t[i] - o
+        delta_o = error * o * (1 - o)
+        delta_h1 = h1*(1-h1) * delta_o * v1
+        delta_h2 = h2*(1-h2) * delta_o * v2
+        v1 = v1 + lr * delta_o * h1
+        v2 = v2 + lr * delta_o * h2
+        bo = bo + lr * delta_o
+        w1 = w1 + lr * delta_h1 * x[i][0]
+        w2 = w2 + lr * delta_h1 * x[i][1]
+        w3 = w3 + lr * delta_h2 * x[i][0]
+        w4 = w4 + lr * delta_h2 * x[i][1]
+        bh1 = bh1 + lr * delta_h1
+        bh2 = bh2 + lr * delta_h2
+print("\nTraining Completed\n")
+for i in range(4):
+    h1 = sigmoid(x[i][0]*w1 + x[i][1]*w2 + bh1)
+    h2 = sigmoid(x[i][0]*w3 + x[i][1]*w4 + bh2)
+    o = sigmoid(h1*v1 + h2*v2 + bo)
+    out = 1 if o >= 0.5 else 0
+    print(x[i], "->", out)
