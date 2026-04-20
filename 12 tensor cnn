@@ -1,0 +1,40 @@
+import tensorflow as tf
+x = [
+    [[[1],[0],[1],[0]],
+     [[0],[1],[0],[1]],
+     [[1],[0],[1],[0]],
+     [[0],[1],[0],[1]]],
+    [[[0],[1],[0],[1]],
+     [[1],[0],[1],[0]],
+     [[0],[1],[0],[1]],
+     [[1],[0],[1],[0]]],
+    [[[1],[1],[1],[1]],
+     [[0],[0],[0],[0]],
+     [[1],[1],[1],[1]],
+     [[0],[0],[0],[0]]],
+    [[[0],[0],[0],[0]],
+     [[1],[1],[1],[1]],
+     [[0],[0],[0],[0]],
+     [[1],[1],[1],[1]]]
+]
+y = [0,1,0,1]
+x_train = tf.constant(x, dtype=tf.float32)
+y_train = tf.constant(y, dtype=tf.int32)
+model = tf.keras.Sequential([
+    tf.keras.layers.Conv2D(2, (2,2), activation='relu', input_shape=(4,4,1)),
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(4, activation='relu'),
+    tf.keras.layers.Dense(2, activation='softmax')
+])
+model.compile(
+    optimizer='adam',
+    loss='sparse_categorical_crossentropy',
+    metrics=['accuracy']
+)
+ep = int(input("Enter epochs: "))
+model.fit(x_train, y_train, epochs=ep)
+loss, acc = model.evaluate(x_train, y_train)
+print("Accuracy:", acc)
+pred = model.predict(x_train)
+print("Predictions:")
+print(pred)
